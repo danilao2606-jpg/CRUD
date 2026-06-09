@@ -1,14 +1,18 @@
 package config;
 
+import controller.UserController;
 import model.User;
 import org.springframework.stereotype.Component;
 import service.UserService;
 
-@Component
-public class Main {
-    private final UserService userService;
+import java.util.logging.Logger;
 
-    public Main (UserService userService) {
+@Component
+public class Initializer {
+    private final UserService userService;
+    private static Logger log = Logger.getLogger(UserController.class.getName());
+
+    public Initializer(UserService userService) {
         this.userService = userService;
     }
 
@@ -19,7 +23,7 @@ public class Main {
             userService.save(new User("Valera", "va.www@mail.ru", 20));
             userService.save(new User("Bogdan", "bob.l@mail.ru", 19));
             userService.save(new User("Ilona", "ilona.p@mail.ru", 18));
-            System.out.println("=== База данных инициализирована! ===");
+            log.info("=== База данных инициализирована! ===");
         }
     }
 }

@@ -1,7 +1,7 @@
 package model;
 
-
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
 @Entity
 @Table(name = "users")
@@ -11,13 +11,20 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @NotEmpty(message = "Имя пожалуйста)")
+    @Pattern(regexp = "^[a-zA-Zа-яА-Я]+$", message = "Ты вводишь свой ник? А нужно имя)")
+    @Size(min = 2, max = 30, message = "Странное имя, нужно от 2 до 30 букв в имени")
     @Column (name = "name")
     private String name;
 
+    @NotEmpty(message = "Почту пожалуйста =)")
+    @Email(message = "Email не подходит как бы...")
     @Column (name = "email")
     private String email;
 
-    @Column (name = "age")
+    @Max(value = 100, message = "Ты выглядишь моложе")
+    @Min(value = 0, message = "А это точно твой возраст?")
+    @Column(name = "age")
     private int age;
 
     public User(String name, String email, int age) {
