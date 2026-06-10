@@ -35,5 +35,8 @@ public class UserDaoHibernate implements UserDAO {
     public void update(User user) { entityManager.merge(user); }
 
     @Override
-    public void deleteById(Long id) { entityManager.remove(entityManager.find(User.class, id)); }
+    public void deleteById(Long id) {
+        String sql = "DELETE FROM users WHERE id = ?";
+        entityManager.createNativeQuery(sql).setParameter(1, id).executeUpdate();
+    }
 }
