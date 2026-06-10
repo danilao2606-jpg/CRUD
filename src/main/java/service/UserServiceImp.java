@@ -1,17 +1,14 @@
 package service;
 
-import controller.UserController;
 import dao.UserDAO;
 import model.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.logging.Logger;
 
 @Service
 public class UserServiceImp implements UserService{
-    private static Logger log = Logger.getLogger(UserController.class.getName());
 
     private final UserDAO usersDao;
 
@@ -20,6 +17,7 @@ public class UserServiceImp implements UserService{
     }
 
     @Override
+    @Transactional (readOnly = true)
     public User findById(Long id) {
         return usersDao.findById(id);
     }
@@ -28,12 +26,13 @@ public class UserServiceImp implements UserService{
     @Transactional
     public void save(User user) {
         if (user == null) {
-            log.info("Пользователь не найден!");
+            throw new NullPointerException("Exception: человек для сохранения не найден!");
         }
         usersDao.save(user);
     }
 
     @Override
+    @Transactional (readOnly = true)
     public List<User> findAll() {
         return usersDao.findAll();
     }
@@ -42,7 +41,7 @@ public class UserServiceImp implements UserService{
     @Transactional
     public void update(User user) {
         if (user == null) {
-            log.info("Пользователь не найден!");
+            throw new NullPointerException("Exception: человек для изменения не найден!");
         }
         usersDao.update(user);
     }
@@ -52,7 +51,7 @@ public class UserServiceImp implements UserService{
     public void deleteById(long id) {
         User user = usersDao.findById(id);
         if (user == null) {
-            log.info("Пользователь не найден!");
+            throw new NullPointerException("Exception: человек для удаления не найден!");
         }
         usersDao.deleteById(id);
     }

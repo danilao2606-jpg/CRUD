@@ -1,5 +1,6 @@
 package controller;
 
+import config.Initializer;
 import model.User;
 import net.bytebuddy.matcher.StringMatcher;
 import org.springframework.stereotype.Controller;
@@ -13,7 +14,6 @@ import java.util.logging.Logger;
 
 @Controller("controller")
 public class UserController {
-
     private static Logger log = Logger.getLogger(UserController.class.getName());
 
     private UserService userService;

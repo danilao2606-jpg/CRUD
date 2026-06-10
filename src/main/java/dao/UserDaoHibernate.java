@@ -23,10 +23,7 @@ public class UserDaoHibernate implements UserDAO {
     }
 
     @Override
-    @Transactional
-    public void save(User user) {
-        entityManager.persist(user);
-    }
+    public void save(User user) { entityManager.persist(user); }
 
     @Override
     public List<User> findAll() {
@@ -35,15 +32,8 @@ public class UserDaoHibernate implements UserDAO {
     }
 
     @Override
-    @Transactional
-    public void update(User user) {
-        entityManager.merge(user);
-    }
+    public void update(User user) { entityManager.merge(user); }
 
     @Override
-    @Transactional
-    public void deleteById(Long id) {
-        User user = entityManager.find(User.class, id);
-        entityManager.remove(user);
-    }
+    public void deleteById(Long id) { entityManager.remove(entityManager.find(User.class, id)); }
 }
